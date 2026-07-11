@@ -19,3 +19,24 @@ buildscript {
 }
 
 apply plugin: "com.facebook.react.rootproject"
+
+subprojects { subproject ->
+    subproject.pluginManager.withPlugin('com.android.application') {
+        subproject.android.defaultConfig {
+            externalNativeBuild {
+                cmake {
+                    cppFlags "-D_LIBCPP_DISABLE_AVAILABILITY -include format"
+                }
+            }
+        }
+    }
+    subproject.pluginManager.withPlugin('com.android.library') {
+        subproject.android.defaultConfig {
+            externalNativeBuild {
+                cmake {
+                    cppFlags "-D_LIBCPP_DISABLE_AVAILABILITY -include format"
+                }
+            }
+        }
+    }
+}
